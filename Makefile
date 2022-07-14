@@ -19,7 +19,7 @@ gunicorn:
 		poetry run gunicorn task_manager.wsgi
 
 requirements:
-		poetry export -f requirements.txt -o requirements.txt
+		poetry export --without-hashes -f requirements.txt -o requirements.txt
 
 makemigrations:
 		 poetry run python manage.py makemigrations
