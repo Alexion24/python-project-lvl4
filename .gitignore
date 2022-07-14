@@ -1,5 +1,5 @@
 Makefile*.egg-info
-__pycache__
+__pycache__/
 dist/
 *.pyc
 .venv/
@@ -8,3 +8,5 @@ coverage.xml
 .pytest_cache/
 .vim
 *.log
+.env
+htmlcov/
