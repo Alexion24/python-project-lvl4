@@ -1,9 +1,15 @@
 
 install:
-	poetry install
+		poetry install
+
+build:
+		poetry build
+
+lint:
+		poetry run flake8 task_manager
 
 package-install:
-	python3 -m pip install --user dist/*.whl --force-reinstall
+		python3 -m pip install --user dist/*.whl --force-reinstall
 
 version:
 		poetry run django-admin version
@@ -21,35 +27,14 @@ gunicorn:
 requirements:
 		poetry export --without-hashes -f requirements.txt -o requirements.txt
 
+locale:
+		python3 manage.py makemessages -l ru
+
+compile:
+		poetry run django-admin compilemessages --ignore=env
+
 makemigrations:
 		 poetry run python manage.py makemigrations
 
 migrate:
 		 poetry run python manage.py migrate
-
-shell:
-		poetry run python manage.py shell
-
-#lint:
-#	poetry run flake8 page_loader
-#	poetry run flake8 tests
-#
-#test:
-#	poetry run pytest -vv
-#
-#test-coverage:
-#	poetry run pytest --cov=page_loader/ tests/ --cov-report xml
-#
-#selfcheck:
-#	poetry check
-#
-#check: selfcheck test lint
-#
-#build: check
-#	poetry build
-#
-#.PHONY: install test lint selfcheck check build
-
-
-
-
