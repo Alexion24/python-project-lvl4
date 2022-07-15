@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Менеджер задач</title>
-</head>
-<body>
-    <h1>Привет от Хекслета!</h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Task manager{% endblock %}
+{% block content %}
+<div class="container wrapper flex-grow-1">
+    <div class="card">
+        <div class="card-body p-5 bg-light mt-5 pt-4 pb-16">
+            <div class="display-4">{% translate 'Hello from Hexlet!' %}</div>
+            <p class="lead">{% translate 'Practical programming courses' %}</p>
+            <hr>
+            <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">{% translate 'Learn more' %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
