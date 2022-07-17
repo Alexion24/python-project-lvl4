@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% bootstrap_messages %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container wrapper flex-grow-1">
+    <div class="card">
+        <div class="card-body p-5 bg-light mt-5 pt-4 pb-16">
+            <h1 class="my-4">{% translate title %}</h1>
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% bootstrap_button button_text button_type="submit" button_class="btn-primary" %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
