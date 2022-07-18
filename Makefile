@@ -38,3 +38,6 @@ makemigrations:
 
 migrate:
 		 poetry run python manage.py migrate
+
+herokumigrate:
+		heroku run python manage.py migrate
