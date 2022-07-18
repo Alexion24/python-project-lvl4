@@ -118,7 +118,7 @@ if not DEBUG:
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-        'OPTIONS': {'min_length': 5},
+        'OPTIONS': {'min_length': 3},
     },
 ]
 
@@ -126,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = os.getenv('LOCALE', default='ru')
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
