@@ -9,7 +9,7 @@ class UserMixin(LoginRequiredMixin, UserPassesTestMixin):
     def test_func(self):
         return self.kwargs['pk'] == self.request.user.id
 
-    def not_have_permission(self):
+    def handle_no_permission(self):
         if self.request.user.is_authenticated:
             messages.error(
                 self.request,
