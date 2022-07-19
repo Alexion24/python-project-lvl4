@@ -5,11 +5,14 @@ install:
 build:
 		poetry build
 
+package-install:
+		python3 -m pip install --user dist/*.whl --force-reinstall
+
 lint:
 		poetry run flake8 task_manager
 
-package-install:
-		python3 -m pip install --user dist/*.whl --force-reinstall
+test:
+		poetry run python3 manage.py test task_manager/tests
 
 version:
 		poetry run django-admin version
