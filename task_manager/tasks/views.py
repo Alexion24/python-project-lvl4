@@ -8,6 +8,7 @@ from django.views.generic import ListView, CreateView, DeleteView, DetailView, \
     UpdateView
 from task_manager.tasks.forms import TaskForm
 from task_manager.tasks.models import Task
+from task_manager.users.models import User
 
 
 class TasksListView(LoginRequiredMixin, ListView):
@@ -42,8 +43,7 @@ class CreateTaskView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = _('Task successfully created.')
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.author = self.request.user
+        form.instance.author = User.objects.get(pk=self.request.user.pk)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
