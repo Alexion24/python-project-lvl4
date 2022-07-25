@@ -40,4 +40,7 @@ urlpatterns = [
     path('statuses/',
          include('task_manager.statuses.urls')
          ),
+    path('tasks/',
+         include('task_manager.tasks.urls')
+         ),
 ]
