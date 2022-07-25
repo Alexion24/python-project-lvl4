@@ -1,69 +1,60 @@
 from http import HTTPStatus
-from django.test import Client, TestCase
-from django.urls import reverse_lazy
-from faker import Faker
+from django.test import TestCase
+from django.urls import reverse
 from task_manager.statuses.models import Status
 from task_manager.users.models import User
+from task_manager.tasks.models import Task
 
 
 class StatusesTest(TestCase):
 
+    fixtures = ["users.json", "statuses.json", "tasks.json"]
+
     def setUp(self):
-        self.client = Client()
-        self.faker = Faker()
-        self.username = self.faker.user_name()
-        self.password = self.faker.password(length=5)
-        self.user = User.objects.create_user(
-            username=self.username,
-            password=self.password,
-        )
-        self.user.save()
-        self.name = self.faker.pystr()
-        self.status = Status.objects.create(
-            name=self.name,
-        )
-        self.status.save()
+        self.user = User.objects.get(pk=5)
+        self.status1 = Status.objects.get(pk=6)
+        self.status2 = Status.objects.get(pk=7)
 
-    def tearDown(self):
-        self.user.delete()
-        self.status.delete()
-
-    def test(self):
+    def test_statuses(self):
         self.client.force_login(self.user)
-        response = self.client.get(
-            reverse_lazy('statuses:statuses'),
-        )
+        response = self.client.get(reverse('statuses:statuses'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self._test_create_status()
-        self._test_update_status(self.status)
-        self._test_delete_status(self.status)
+        statuses = list(response.context['statuses'])
+        self.assertQuerysetEqual(statuses, [self.status1, self.status2])
 
-    def _test_create_status(self):
+    def test_create_status(self):
+        self.client.force_login(self.user)
+        new_status = {'name': 'test_status3'}
         response = self.client.post(
-            reverse_lazy('statuses:create'),
-            {'name': 'test_status'},
+            reverse('statuses:create'),
+            new_status,
         )
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        created_status = Status.objects.get(name=new_status['name'])
+        self.assertEqual(created_status.name, 'test_status3')
 
-    def _test_update_status(self, status):
+    def test_update_status(self):
+        self.client.force_login(self.user)
+        changed_data = {'name': 'test'}
         response = self.client.post(
-            reverse_lazy(
+            reverse(
                 'statuses:update',
-                args=(status.id,),
+                args=(self.status1.id,),
             ),
-            {'name': 'test'},
+            changed_data,
         )
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
         changed_status = Status.objects.get(name='test')
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertEqual(status.id, changed_status.id)
+        self.assertEqual(self.status1.id, changed_status.id)
 
-    def _test_delete_status(self, status):
+    def test_delete_status(self):
+        self.client.force_login(self.user)
+        Task.objects.all().delete()
         response = self.client.post(
-            reverse_lazy(
-                'statuses:delete',
-                args=(status.id,),
-            ),
+            reverse('statuses:delete', args=(self.status1.id,)),
         )
+        # noinspection PyTypeChecker
+        with self.assertRaises(Status.DoesNotExist):
+            Status.objects.get(pk=self.status1.id)
+
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        with self.assertRaises(status.DoesNotExist):
-            Status.objects.get(pk=status.id)
