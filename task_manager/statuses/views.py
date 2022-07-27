@@ -1,11 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from django.utils.translation import gettext as _
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.db.models import ProtectedError
-from django.http import HttpResponseRedirect
 from task_manager.statuses.models import Status
 from task_manager.statuses.forms import StatusForm
 
@@ -60,19 +59,14 @@ class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = _('Status successfully deleted.')
 
     def form_valid(self, form):
-        try:
-            self.object.delete()
-        except ProtectedError:
+        if self.get_object().tasks.all():
             messages.error(
                 self.request,
-                _('Status is used by task'),
+                _('Cannot delete status because it is in use')
             )
         else:
-            messages.success(
-                self.request,
-                _('Status successfully deleted.'),
-            )
-        return HttpResponseRedirect(self.success_url)
+            super().form_valid(form)
+        return redirect(self.success_url)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

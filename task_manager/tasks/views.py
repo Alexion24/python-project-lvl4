@@ -31,6 +31,7 @@ class DetailedTaskView(LoginRequiredMixin, SuccessMessageMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Task view')
+        context['labels'] = self.get_object().labels.all()
         return context
 
 
