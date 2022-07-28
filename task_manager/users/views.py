@@ -57,7 +57,7 @@ class DeleteUserView(UserMixin, DeleteView):
     success_url = reverse_lazy('users:users')
 
     def form_valid(self, form):
-        if self.get_object().tasks.all() or self.get_object().works.all():
+        if self.get_object().author.all() or self.get_object().executor.all():
             messages.error(
                 self.request,
                 _('Cannot delete user because it is in use')

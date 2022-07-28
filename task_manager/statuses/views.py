@@ -59,7 +59,7 @@ class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = _('Status successfully deleted.')
 
     def form_valid(self, form):
-        if self.get_object().tasks.all():
+        if self.get_object().status.all():
             messages.error(
                 self.request,
                 _('Cannot delete status because it is in use')
