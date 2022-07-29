@@ -74,6 +74,17 @@ beautifulsoup4 = ">=4.8.0"
 Django = ">=2.2"
 
 [[package]]
+name = "django-filter"
+version = "22.1"
+description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "faker"
 version = "13.15.0"
 description = "Faker is a Python package that generates fake data for you."
@@ -211,7 +222,7 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d0db0164bd049848c7a7c764c3899c8ed8f2b6356ed8a83427f3e89fae70abfd"
+content-hash = "792b7e45e6246f702bcd22dc6957c92f9c1911d9b88a47d3b06220d68b6ed76a"
 
 [metadata.files]
 asgiref = [
@@ -243,6 +254,7 @@ beautifulsoup4 = [
 dj-database-url = []
 django = []
 django-bootstrap4 = []
+django-filter = []
 faker = []
 flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
