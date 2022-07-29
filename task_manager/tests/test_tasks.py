@@ -74,3 +74,37 @@ class TasksTest(TestCase):
             Task.objects.get(pk=self.task1.id)
 
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+    def test_filter_by_status(self):
+        self.client.force_login(self.user1)
+        filtered_by_status = f'{reverse("tasks:tasks")}?status=6'
+        response = self.client.get(filtered_by_status)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertQuerysetEqual(list(response.context['tasks']), [self.task1])
+
+    def test_filter_by_executor(self):
+        self.client.force_login(self.user1)
+        filtered_by_executor = f'{reverse("tasks:tasks")}?executor=5'
+        response = self.client.get(filtered_by_executor)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertQuerysetEqual(list(response.context['tasks']), [self.task1])
+
+    def test_filter_by_label(self):
+        self.client.force_login(self.user1)
+        filtered_by_label = f'{reverse("tasks:tasks")}?labels=1'
+        response = self.client.get(filtered_by_label)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertQuerysetEqual(
+            list(response.context['tasks']),
+            [self.task1],
+        )
+
+    def test_filter_by_self_tasks(self):
+        self.client.force_login(self.user1)
+        filtered_by_self_tasks = f'{reverse("tasks:tasks")}?self_task=on'
+        response = self.client.get(filtered_by_self_tasks)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertQuerysetEqual(
+            list(response.context['tasks']),
+            [self.task1, self.task2],
+        )
