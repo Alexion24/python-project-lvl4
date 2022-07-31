@@ -29,12 +29,12 @@ urlpatterns = [
     ),
     path(
         'login/',
-        views.LoginUserView.as_view(next_page='index'),
+        views.LoginUserView.as_view(),
         name='login'
     ),
     path(
         'logout/',
-        views.LogoutUserView.as_view(next_page='index'),
+        views.LogoutUserView.as_view(),
         name='logout'
     ),
     path(
