@@ -55,6 +55,17 @@ python-versions = ">=3.6.0"
 unicode_backport = ["unicodedata2"]
 
 [[package]]
+name = "coverage"
+version = "6.4.2"
+description = "Code coverage measurement for Python"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+toml = ["tomli"]
+
+[[package]]
 name = "dj-database-url"
 version = "0.5.0"
 description = "Use Database URLs in your Django Application."
@@ -292,7 +303,7 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "e4e7a91b24651bb0d228004a5ddd88c8a10de5a36a6e63c08145da6c10513564"
+content-hash = "7cce62eabe75557c413d16a13e04601328fe62dd20a009dde2161d7939b9416a"
 
 [metadata.files]
 asgiref = [
@@ -323,6 +334,7 @@ beautifulsoup4 = [
 ]
 certifi = []
 charset-normalizer = []
+coverage = []
 dj-database-url = []
 django = []
 django-bootstrap4 = []
