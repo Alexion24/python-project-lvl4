@@ -79,7 +79,7 @@ msgid "Delete label"
 msgstr "Удалить метку"
 
 #: task_manager/labels/views.py:73 task_manager/statuses/views.py:74
-#: task_manager/tasks/views.py:95 task_manager/users/views.py:72
+#: task_manager/tasks/views.py:95 task_manager/users/views.py:73
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -238,11 +238,15 @@ msgstr "Пользователь успешно изменён."
 msgid "Change a user"
 msgstr "Изменить пользователя"
 
-#: task_manager/users/views.py:63
+#: task_manager/users/views.py:58
+msgid "User successfully deleted."
+msgstr "Пользователь успешно удалён."
+
+#: task_manager/users/views.py:64
 msgid "Cannot delete user because it is in use"
 msgstr "Невозможно удалить пользователя, потому что он используется"
 
-#: task_manager/users/views.py:71
+#: task_manager/users/views.py:72
 msgid "Delete a user"
 msgstr "Удалить пользователя"
 
