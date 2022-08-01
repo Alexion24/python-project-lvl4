@@ -19,7 +19,7 @@ class LoginUserView(SuccessMessageMixin, LoginView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Login')
+        context['title'] = _('Log in')
         context['button_text'] = _('Login')
         return context
 
