@@ -248,7 +248,7 @@ msgstr "Удалить пользователя"
 
 #: task_manager/views.py:16
 msgid "You successfully logged in"
-msgstr "Вы успешно залогинены"
+msgstr "Вы залогинены"
 
 #: task_manager/views.py:20 task_manager/views.py:21
 msgid "Login"
@@ -256,7 +256,7 @@ msgstr "Войти"
 
 #: task_manager/views.py:31
 msgid "You logged out successfully"
-msgstr "Вы успешно разлогинены"
+msgstr "Вы разлогинены"
 
 #: templates/base.html:11 templates/base.html:16
 msgid "Task manager"
