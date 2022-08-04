@@ -61,13 +61,18 @@ class TasksTest(TestCase):
         changed_task = Task.objects.get(name='test')
         self.assertEqual(self.task1.id, changed_task.id)
 
+    def test_delete_task_by_not_author(self):
+        self.client.force_login(self.user2)
+        response = self.client.post(
+            reverse('tasks:delete', args=(self.task1.id,)),
+        )
+        self.assertTrue(Task.objects.filter(pk=self.task1.pk).exists())
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
     def test_delete_task(self):
         self.client.force_login(self.user1)
         response = self.client.post(
-            reverse(
-                'tasks:delete',
-                args=(self.task1.id,),
-            ),
+            reverse('tasks:delete', args=(self.task1.id,)),
         )
         # noinspection PyTypeChecker
         with self.assertRaises(Task.DoesNotExist):
